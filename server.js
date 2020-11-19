@@ -21,4 +21,4 @@ app.use('/api', router);
 
 // Start the server
 app.listen(port);
-console.log('Insert beer on port ' + port);
+console.log('Insert PC system on port ' + port);

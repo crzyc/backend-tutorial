@@ -9,4 +9,4 @@ var pokeSchema = new mongoose.Schema({
 });
 
 // Export the Mongoose model
-module.exports = mongoose.model('Pokemon', pokeSchema);
+module.exports = mongoose.model('pokemon', pokeSchema);

@@ -35,12 +35,56 @@ pokeRoute.post(function(req, res){
 	var pokemon = new Pokemon();
 	pokemon.name = req.body.name;
 	pokemon.type = req.body.type;
-	pokemon.quantity = req.body.quanitity;
+	pokemon.quantity = req.body.quantity;
 	
 	pokemon.save(function(err){
 		if(err)
 			res.send(err);
 		res.json({ message: 'Pokemon added to the dex!', data: pokemon });
+	});
+});
+
+//Regular GET request
+pokeRoute.get(function(req, res){
+	Pokemon.find(function(err, pokemon){
+		if(err)
+			res.send(err);
+		res.json(pokemon);
+	});
+});
+
+//Specific ID selection for GET request
+var pokeRoute = router.route('/pokedex/:pokemon_id');
+pokeRoute.get(function(req, res){
+	Pokemon.findById(req.params.pokemon_id, function(err, pokemon){
+		if(err)
+			res.send(err);
+		res.json(pokemon);
+	});
+});
+
+//Quantity of pokemon
+pokeRoute.put(function(req,res){
+	Pokemon.findById(req.params.pokemon_id, function(err,pokemon){
+		if(err)
+			res.send(err);
+		
+		pokemon.quantity = req.body.quantity;
+		
+		pokemon.save(function(err){
+			if(err)
+				res.send(err);
+			res.json(pokemon);
+		});
+	});
+});
+
+//Delete functionality.
+pokeRoute.delete(function(req,res){
+	Pokemon.findByIdAndRemove(req.params.pokemon_id, function(err){
+		if(err)
+			res.send(err);
+		res.json({ message: 'Pokemon removed from the dex!' })
 	});
 });
 
